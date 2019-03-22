@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 
+import '../api/currencyApi.dart';
 
-class CyrptoListWidget extends StatelessWidget{
+
+class MainWidget extends StatefulWidget {
+  var currencies;
+
+
+  MainWidget(this.currencies);
+  @override
+  CyrptoListWidget createState() => new CyrptoListWidget(currencies);
+}
+
+
+class CyrptoListWidget extends State<MainWidget>{
 
   final List<MaterialColor> colors=[Colors.blue,Colors.indigo,Colors.red];
-  final List currencies;
+  List currencies;
 
   CyrptoListWidget(this.currencies);
 
@@ -30,23 +42,28 @@ class CyrptoListWidget extends StatelessWidget{
   void addCurrency(){}
 
 
-  Widget buildBody(){
-
+  Widget buildBody() {
     return new Container(
-      margin: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 10.0),
-      child: new Column(
-        children: <Widget>[
-
-          getListViewWidget(),
-
-        ],
-      ),
-    );
-
+        margin: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 10.0),
+        child: RefreshIndicator(
+            child: new Column(
+              children: <Widget>[
+                getListViewWidget(),
+              ],
+            ),
+            onRefresh: refreshCurrencyList));
   }
 
 
+  Future<void> refreshCurrencyList() async{
+    CurrencyApi currencyApi=new CurrencyApi();
+    List currencies=await currencyApi.getCurrencies();
+    setState(() {
+      this.currencies=currencies;
+    });
 
+
+  }
 
 
   Widget getListViewWidget(){
@@ -107,8 +124,5 @@ class CyrptoListWidget extends StatelessWidget{
     );
     
   }
-
-
-  
 
 }
