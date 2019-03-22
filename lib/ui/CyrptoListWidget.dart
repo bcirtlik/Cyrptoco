@@ -11,21 +11,32 @@ class CyrptoListWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
       return new Scaffold(
+        appBar: new AppBar(
+          backgroundColor: Colors.brown.shade200,
+          title: new Text("Cyrptocurrency"),
+        ),
         body: buildBody(),
-        backgroundColor: Colors.blue,
+        floatingActionButton: new FloatingActionButton(
+          onPressed: ()=>addCurrency(),
+          backgroundColor: Colors.indigo.shade300,
+          child: new Icon(Icons.add),
+        ),
+        backgroundColor: Colors.white,
       );
 
 
   }
 
+  void addCurrency(){}
+
 
   Widget buildBody(){
 
     return new Container(
-      margin: const EdgeInsets.fromLTRB(8.0, 56.0, 8.0, 0.0),
+      margin: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 10.0),
       child: new Column(
         children: <Widget>[
-          getAppTitleWidget(),
+
           getListViewWidget(),
 
         ],
@@ -35,13 +46,7 @@ class CyrptoListWidget extends StatelessWidget{
   }
 
 
-  Widget getAppTitleWidget(){
-    return new Text('Cyrptocurrencies',style: new TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontSize: 24.0
-    ),);
-  }
+
 
 
   Widget getListViewWidget(){
@@ -68,7 +73,7 @@ class CyrptoListWidget extends StatelessWidget{
         margin: const EdgeInsets.only(top:10.0),
         child: new Card(
           child: getListTile(currency, color),
-
+          color: Colors.blueGrey.shade50 ,
         ),
 
 
